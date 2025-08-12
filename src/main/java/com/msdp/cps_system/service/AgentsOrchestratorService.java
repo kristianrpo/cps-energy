@@ -1,8 +1,8 @@
 package com.msdp.cps_system.service;
 import com.msdp.cps_system.dto.DemandPredictionResponseDto;
-import com.msdp.cps_system.dto.SimulationEventRequestDto;
 
 import java.time.LocalDateTime;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -17,9 +17,9 @@ public class AgentsOrchestratorService {
         this.predictorAgent = predictorAgent;
     }
 
-    public DemandPredictionResponseDto processPrediction(SimulationEventRequestDto event) {
-        DemandPredictionResponseDto rawResult = predictorAgent.predict(event.getType().toString(), event.getParameters());
-        rawResult.setEventType(event.getType().toString());
+    public DemandPredictionResponseDto processPrediction(String eventType, Map<String, Object> parameters) {
+        DemandPredictionResponseDto rawResult = predictorAgent.predict(eventType, parameters);
+        rawResult.setEventType(eventType);
         rawResult.setTimestamp(LocalDateTime.now());
         return rawResult;
     }
