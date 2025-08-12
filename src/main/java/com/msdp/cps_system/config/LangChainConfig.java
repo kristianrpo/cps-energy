@@ -27,7 +27,7 @@ public class LangChainConfig {
     }
 
     @Bean
-    public PredictorAgent demandPredictorAgent(
+    public PredictorAgent predictorAgent(
             OpenAiChatModel chatModel,
             ConsumptionHistoryTool consumptionHistoryTool,
             WeatherServiceTool weatherServiceTool
