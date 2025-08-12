@@ -22,8 +22,7 @@ public class EnergyPredictionController {
     @PostMapping("/cloud-cover")
     public DemandPredictionResponseDto handleCloudCover(
             @Valid @RequestBody SuddenCloudCoverRequestDto request) {
-        
-        // Convert record to Map for the agent
+
         Map<String, Object> parameters = Map.of(
             "intensity", request.intensity(),
             "duration", request.duration(),
@@ -37,7 +36,6 @@ public class EnergyPredictionController {
     public DemandPredictionResponseDto handleEquipmentFailure(
             @Valid @RequestBody EquipmentFailureRequestDto request) {
         
-        // Convert record to Map for the agent
         Map<String, Object> parameters = Map.of(
             "equipmentId", request.equipmentId(),
             "failureType", request.failureType(),

@@ -6,14 +6,14 @@ import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
-import com.msdp.cps_system.agent.DemandPredictorAgent.PredictorAgent;
+import com.msdp.cps_system.agent.DemandPredictorAgent;
 
 @Service
 public class AgentsOrchestratorService {
 
-    private final PredictorAgent predictorAgent;
+    private final DemandPredictorAgent predictorAgent;
 
-    public AgentsOrchestratorService(PredictorAgent predictorAgent) {
+    public AgentsOrchestratorService(DemandPredictorAgent predictorAgent) {
         this.predictorAgent = predictorAgent;
     }
 
