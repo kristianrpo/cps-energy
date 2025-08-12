@@ -1,25 +1,14 @@
 package com.msdp.cps_system.agent;
 
-import com.msdp.cps_system.agent.tools.ConsumptionHistoryTool;
-import com.msdp.cps_system.agent.tools.WeatherServiceTool;
 import com.msdp.cps_system.dto.DemandPredictionResponseDto;
-import com.msdp.cps_system.dto.SimulationEventRequestDto;
-
-import dev.langchain4j.model.openai.OpenAiChatModel;
-import dev.langchain4j.service.AiServices;
 import dev.langchain4j.service.SystemMessage;
 import dev.langchain4j.service.UserMessage;
 import dev.langchain4j.service.V;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDateTime;
 import java.util.Map;
 
 @Service
 public class DemandPredictorAgent {
-    private final OpenAiChatModel chatModel;
-    private final ConsumptionHistoryTool historyTool;
-    private final WeatherServiceTool weatherTool;
 
     @SystemMessage("""
         Eres un experto en predicción de demanda energética industrial. 
@@ -44,32 +33,5 @@ public class DemandPredictorAgent {
             @V("eventType") String eventType,
             @V("parameters") Map<String, Object> parameters
         );
-    }
-
-    public DemandPredictorAgent(
-        OpenAiChatModel chatModel,
-        ConsumptionHistoryTool historyTool,
-        WeatherServiceTool weatherTool
-    ) {
-        this.chatModel = chatModel;
-        this.historyTool = historyTool;
-        this.weatherTool = weatherTool;
-    }
-
-    public DemandPredictionResponseDto predict(SimulationEventRequestDto event) {
-        PredictorAgent agent = AiServices.builder(PredictorAgent.class)
-            .chatLanguageModel(chatModel)
-            .tools(historyTool, weatherTool)
-            .build();
-
-        DemandPredictionResponseDto result = agent.predict(
-            event.getType().toString(),
-            event.getParameters()
-        );
-
-        result.setEventType(event.getType().toString());
-        result.setTimestamp(LocalDateTime.now());
-
-        return result;
     }
 }
