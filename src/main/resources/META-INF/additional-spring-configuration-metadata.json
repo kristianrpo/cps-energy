@@ -1,5 +1,0 @@
-{"properties": [{
-  "name": "openai.api.key",
-  "type": "java.lang.String",
-  "description": "OPENAI api key for agents'"
-}]}

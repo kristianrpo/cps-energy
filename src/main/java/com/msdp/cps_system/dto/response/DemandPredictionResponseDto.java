@@ -1,4 +1,4 @@
-package com.msdp.cps_system.dto;
+package com.msdp.cps_system.dto.response;
 
 import java.time.LocalDateTime;
 import java.util.List;
