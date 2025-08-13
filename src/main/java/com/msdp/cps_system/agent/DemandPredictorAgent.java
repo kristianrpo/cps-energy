@@ -1,11 +1,11 @@
 package com.msdp.cps_system.agent;
 
 import com.msdp.cps_system.dto.DemandPredictionResponseDto;
+import com.msdp.cps_system.dto.BaseEventRequestDto;
 import dev.langchain4j.service.SystemMessage;
 import dev.langchain4j.service.UserMessage;
 import dev.langchain4j.service.V;
 import dev.langchain4j.service.spring.AiService;
-import java.util.Map;
 
 @AiService
 @SystemMessage("""
@@ -23,13 +23,15 @@ import java.util.Map;
 public interface DemandPredictorAgent {
     
     @UserMessage("""
-        Event: {{eventType}}
-        Parameters: {{parameters}}
+        Event Type: {{eventType}}
+        Event Details: {{request}}
+        Timestamp: {{timestamp}}
         ---
         Use available tools if you need more data to make the prediction.
         """)
     DemandPredictionResponseDto predict(
+        @V("request") BaseEventRequestDto request,
         @V("eventType") String eventType,
-        @V("parameters") Map<String, Object> parameters
+        @V("timestamp") String timestamp
     );
 }
