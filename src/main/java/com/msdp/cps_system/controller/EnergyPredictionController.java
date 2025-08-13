@@ -7,7 +7,6 @@ import com.msdp.cps_system.service.AgentsOrchestratorService;
 import org.springframework.web.bind.annotation.*;
 
 import jakarta.validation.Valid;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/prediction")
@@ -22,26 +21,12 @@ public class EnergyPredictionController {
     @PostMapping("/cloud-cover")
     public DemandPredictionResponseDto handleCloudCover(
             @Valid @RequestBody SuddenCloudCoverRequestDto request) {
-
-        Map<String, Object> parameters = Map.of(
-            "intensity", request.intensity(),
-            "duration", request.duration(),
-            "forecastAccuracy", request.forecastAccuracy() != null ? request.forecastAccuracy() : 80
-        );
-        
-        return orchestratorService.processPrediction("sudden_cloud_cover", parameters);
+        return orchestratorService.processEventPrediction(request);
     }
     
     @PostMapping("/equipment-failure")
     public DemandPredictionResponseDto handleEquipmentFailure(
             @Valid @RequestBody EquipmentFailureRequestDto request) {
-        
-        Map<String, Object> parameters = Map.of(
-            "equipmentId", request.equipmentId(),
-            "failureType", request.failureType(),
-            "estimatedRepairTime", request.estimatedRepairTime() != null ? request.estimatedRepairTime() : 60
-        );
-        
-        return orchestratorService.processPrediction("equipment_failure", parameters);
+        return orchestratorService.processEventPrediction(request);
     }
 }
