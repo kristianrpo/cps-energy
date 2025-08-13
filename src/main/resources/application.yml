@@ -13,7 +13,7 @@ springdoc:
 langchain4j:
   open-ai:
     chat-model:
-      api-key: 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
+      api-key: ${OPENAI_API_KEY}
       model-name: gpt-4o-mini
       log-requests: true
       log-responses: true
