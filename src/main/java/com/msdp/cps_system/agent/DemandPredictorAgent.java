@@ -27,7 +27,20 @@ public interface DemandPredictorAgent {
         Event Details: {{request}}
         Timestamp: {{timestamp}}
         ---
-        Use available tools if you need more data to make the prediction.
+        Analysis Guidelines:
+        
+        For WEATHER events (sudden_cloud_cover, etc.):
+        1. Use `getCurrentWeather` to get current conditions
+        2. Use `getSolarYieldPrediction` to assess solar impact
+        3. Use `getWeatherChangeForecast` for trend analysis
+        4. Use `getHistoricalPattern` for the current time period
+        
+        For EQUIPMENT events (equipment_failure, etc.):
+        1. Use `getSimilarEvents` to find comparable failures
+        2. Use `getHistoricalPattern` for baseline consumption
+        3. Use `getCurrentWeather` if weather affects backup systems
+        
+        Call the relevant tools and provide a comprehensive energy demand prediction.
         """)
     DemandPredictionResponseDto predict(
         @V("request") BaseEventRequestDto request,
