@@ -1,7 +1,7 @@
 package com.msdp.cps_system.agent;
 
-import com.msdp.cps_system.dto.DemandPredictionResponseDto;
-import com.msdp.cps_system.dto.BaseEventRequestDto;
+import com.msdp.cps_system.dto.response.DemandPredictionResponseDto;
+import com.msdp.cps_system.dto.request.BaseEventRequestDto;
 import dev.langchain4j.service.SystemMessage;
 import dev.langchain4j.service.UserMessage;
 import dev.langchain4j.service.V;

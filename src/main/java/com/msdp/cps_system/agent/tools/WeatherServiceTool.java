@@ -1,8 +1,8 @@
 package com.msdp.cps_system.agent.tools;
 
-import com.msdp.cps_system.dto.SolarYieldResponseDto;
-import com.msdp.cps_system.dto.WeatherChangeResponseDto;
-import com.msdp.cps_system.dto.WeatherHistoricalResponseDto;
+import com.msdp.cps_system.dto.tools.SolarYieldResponseDto;
+import com.msdp.cps_system.dto.tools.WeatherChangeResponseDto;
+import com.msdp.cps_system.dto.tools.WeatherHistoricalResponseDto;
 import com.msdp.cps_system.util.GeneralUtil;
 
 import dev.langchain4j.agent.tool.Tool;

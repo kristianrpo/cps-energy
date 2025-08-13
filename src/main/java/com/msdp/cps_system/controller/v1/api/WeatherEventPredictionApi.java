@@ -1,7 +1,7 @@
 package com.msdp.cps_system.controller.v1.api;
 
-import com.msdp.cps_system.dto.DemandPredictionResponseDto;
-import com.msdp.cps_system.dto.SuddenCloudCoverRequestDto;
+import com.msdp.cps_system.dto.response.DemandPredictionResponseDto;
+import com.msdp.cps_system.dto.request.SuddenCloudCoverRequestDto;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;

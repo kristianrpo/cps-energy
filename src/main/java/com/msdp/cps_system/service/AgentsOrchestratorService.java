@@ -1,6 +1,6 @@
 package com.msdp.cps_system.service;
-import com.msdp.cps_system.dto.DemandPredictionResponseDto;
-import com.msdp.cps_system.dto.BaseEventRequestDto;
+import com.msdp.cps_system.dto.response.DemandPredictionResponseDto;
+import com.msdp.cps_system.dto.request.BaseEventRequestDto;
 
 import java.time.LocalDateTime;
 

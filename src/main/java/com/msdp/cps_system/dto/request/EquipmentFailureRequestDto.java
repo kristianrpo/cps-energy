@@ -1,4 +1,4 @@
-package com.msdp.cps_system.dto;
+package com.msdp.cps_system.dto.request;
 
 import com.msdp.cps_system.enums.EventType;
 import jakarta.validation.constraints.NotBlank;

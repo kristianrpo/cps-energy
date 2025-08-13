@@ -1,4 +1,4 @@
-package com.msdp.cps_system.dto;
+package com.msdp.cps_system.dto.tools;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

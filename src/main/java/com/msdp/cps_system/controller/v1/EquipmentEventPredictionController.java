@@ -1,8 +1,8 @@
 package com.msdp.cps_system.controller.v1;
 
 import com.msdp.cps_system.controller.v1.api.EquipmentEventPredictionApi;
-import com.msdp.cps_system.dto.DemandPredictionResponseDto;
-import com.msdp.cps_system.dto.EquipmentFailureRequestDto;
+import com.msdp.cps_system.dto.response.DemandPredictionResponseDto;
+import com.msdp.cps_system.dto.request.EquipmentFailureRequestDto;
 import com.msdp.cps_system.service.AgentsOrchestratorService;
 import org.springframework.web.bind.annotation.*;
 
