@@ -1,6 +1,6 @@
 package com.msdp.cps_system.controller.v1.api;
 
-import com.msdp.cps_system.dto.response.DemandPredictionResponseDto;
+import com.msdp.cps_system.dto.response.SourceSelectionResponseDto;
 import com.msdp.cps_system.dto.request.SuddenCloudCoverRequestDto;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -16,17 +16,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @Tag(
-    name = "Weather Events Prediction", 
-    description = "API for predicting energy demand impact from weather-related events"
+    name = "Weather Events Management", 
+    description = "API for complete energy management during weather-related events"
 )
 public interface WeatherEventPredictionApi {
 
     @Operation(
-        summary = "Predict energy demand impact from sudden cloud cover",
+        summary = "Process complete energy management for sudden cloud cover events",
         description = """
-            Analyzes the impact of sudden cloud cover on industrial energy demand.
-            Uses AI-powered prediction models considering historical patterns, weather conditions, 
-            and solar energy generation changes to estimate the demand variation.
+            Processes sudden cloud cover events through the complete energy management chain:
+            1. Predicts energy demand impact using AI-powered models
+            2. Selects optimal energy sources based on availability and cost
+            3. Provides actionable source selection and operational recommendations
             """,
         operationId = "predictCloudCoverImpact"
     )
@@ -36,7 +37,7 @@ public interface WeatherEventPredictionApi {
             description = "Prediction completed successfully",
             content = @Content(
                 mediaType = "application/json",
-                schema = @Schema(implementation = DemandPredictionResponseDto.class),
+                schema = @Schema(implementation = SourceSelectionResponseDto.class),
                 examples = @ExampleObject(
                     name = "Successful prediction",
                     value = """
@@ -110,7 +111,7 @@ public interface WeatherEventPredictionApi {
         )
     })
     @PostMapping("/cloud-cover-impact")
-    DemandPredictionResponseDto predictCloudCoverImpact(
+    SourceSelectionResponseDto predictCloudCoverImpact(
         @Parameter(
             description = "Cloud cover event details for energy demand prediction",
             required = true,

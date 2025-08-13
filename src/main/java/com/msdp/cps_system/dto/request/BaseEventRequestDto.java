@@ -6,4 +6,5 @@ import java.time.LocalDateTime;
 public interface BaseEventRequestDto {
     EventType getEventType();
     LocalDateTime getTimestamp();
+    EnergySourcesContextDto getEnergySourcesContext();
 }

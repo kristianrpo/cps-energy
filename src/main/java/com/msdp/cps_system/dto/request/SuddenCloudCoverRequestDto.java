@@ -1,6 +1,7 @@
 package com.msdp.cps_system.dto.request;
 
 import com.msdp.cps_system.enums.EventType;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotNull;
@@ -20,7 +21,11 @@ public record SuddenCloudCoverRequestDto(
     @Max(value = 100, message = "Forecast accuracy must be between 0 and 100")
     Integer forecastAccuracy,
     
-    LocalDateTime timestamp
+    LocalDateTime timestamp,
+    
+    @NotNull(message = "Energy sources context is required")
+    @Valid
+    EnergySourcesContextDto energySourcesContext
 ) implements BaseEventRequestDto {
     
     public SuddenCloudCoverRequestDto {
@@ -37,5 +42,10 @@ public record SuddenCloudCoverRequestDto(
     @Override
     public LocalDateTime getTimestamp() {
         return timestamp;
+    }
+    
+    @Override
+    public EnergySourcesContextDto getEnergySourcesContext() {
+        return energySourcesContext;
     }
 }

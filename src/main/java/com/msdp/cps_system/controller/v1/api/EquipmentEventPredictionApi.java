@@ -1,6 +1,6 @@
 package com.msdp.cps_system.controller.v1.api;
 
-import com.msdp.cps_system.dto.response.DemandPredictionResponseDto;
+import com.msdp.cps_system.dto.response.SourceSelectionResponseDto;
 import com.msdp.cps_system.dto.request.EquipmentFailureRequestDto;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -16,18 +16,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @Tag(
-    name = "Equipment Events Prediction", 
-    description = "API for predicting energy demand impact from equipment-related events"
+    name = "Equipment Events Management", 
+    description = "API for complete energy management during equipment-related events"
 )
 public interface EquipmentEventPredictionApi {
 
     @Operation(
-        summary = "Predict energy demand impact from equipment failure",
+        summary = "Process complete energy management for equipment failure events",
         description = """
-            Analyzes the impact of equipment failure on industrial energy demand.
-            Uses AI-powered prediction models considering equipment specifications, failure type, 
-            repair time estimates, and historical patterns to forecast demand variations and 
-            recommend compensatory actions.
+            Processes equipment failure events through the complete energy management chain:
+            1. Predicts energy demand impact using AI-powered models
+            2. Selects optimal energy sources to compensate for equipment downtime
+            3. Provides actionable source selection and operational recommendations
             """,
         operationId = "predictFailureImpact"
     )
@@ -37,7 +37,7 @@ public interface EquipmentEventPredictionApi {
             description = "Prediction completed successfully",
             content = @Content(
                 mediaType = "application/json",
-                schema = @Schema(implementation = DemandPredictionResponseDto.class),
+                schema = @Schema(implementation = SourceSelectionResponseDto.class),
                 examples = @ExampleObject(
                     name = "Successful prediction",
                     value = """
@@ -118,7 +118,7 @@ public interface EquipmentEventPredictionApi {
         )
     })
     @PostMapping("/failure-impact")
-    DemandPredictionResponseDto predictFailureImpact(
+    SourceSelectionResponseDto predictFailureImpact(
         @Parameter(
             description = "Equipment failure details for energy demand prediction",
             required = true,
