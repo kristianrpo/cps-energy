@@ -61,9 +61,9 @@ public interface SourceSelectorAgent {
         
         ANALYSIS WORKFLOW:
         1. Use `analyzeCostEfficiency` with the provided energy sources JSON to understand cost rankings
-        2. Use `checkCapacityAvailability` with demand requirement to verify capacity sufficiency  
-        3. Use `identifyReliableSources` to find most dependable energy sources
-        4. Use `analyzeSourceCompatibility` with selected source types to ensure they work together
+        2. Use `checkCapacityAvailability` with the energy sources JSON and the predicted demand value ({{predictedDemand}}) to verify capacity sufficiency  
+        3. Use `identifyReliableSources` with the energy sources JSON to find most dependable energy sources
+        4. Use `analyzeSourceCompatibility` with the energy sources JSON and selected source types to ensure they work together
         5. Select optimal combination based on cost, reliability, and capacity analysis
         
         SELECTION CONSIDERATIONS:

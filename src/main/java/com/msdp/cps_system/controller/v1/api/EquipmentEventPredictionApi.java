@@ -1,6 +1,6 @@
 package com.msdp.cps_system.controller.v1.api;
 
-import com.msdp.cps_system.dto.response.SourceSelectionResponseDto;
+import com.msdp.cps_system.dto.response.EnergyDistributionResponseDto;
 import com.msdp.cps_system.dto.request.EquipmentFailureRequestDto;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -27,7 +27,8 @@ public interface EquipmentEventPredictionApi {
             Processes equipment failure events through the complete energy management chain:
             1. Predicts energy demand impact using AI-powered models
             2. Selects optimal energy sources to compensate for equipment downtime
-            3. Provides actionable source selection and operational recommendations
+            3. Optimizes energy distribution across selected sources
+            4. Provides detailed allocation plan with costs and operational recommendations
             """,
         operationId = "predictFailureImpact"
     )
@@ -37,7 +38,7 @@ public interface EquipmentEventPredictionApi {
             description = "Prediction completed successfully",
             content = @Content(
                 mediaType = "application/json",
-                schema = @Schema(implementation = SourceSelectionResponseDto.class),
+                schema = @Schema(implementation = EnergyDistributionResponseDto.class),
                 examples = @ExampleObject(
                     name = "Successful prediction",
                     value = """
@@ -118,7 +119,7 @@ public interface EquipmentEventPredictionApi {
         )
     })
     @PostMapping("/failure-impact")
-    SourceSelectionResponseDto predictFailureImpact(
+    EnergyDistributionResponseDto predictFailureImpact(
         @Parameter(
             description = "Equipment failure details for energy demand prediction",
             required = true,

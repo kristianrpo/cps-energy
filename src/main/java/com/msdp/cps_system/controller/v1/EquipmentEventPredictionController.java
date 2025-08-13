@@ -1,7 +1,7 @@
 package com.msdp.cps_system.controller.v1;
 
 import com.msdp.cps_system.controller.v1.api.EquipmentEventPredictionApi;
-import com.msdp.cps_system.dto.response.SourceSelectionResponseDto;
+import com.msdp.cps_system.dto.response.EnergyDistributionResponseDto;
 import com.msdp.cps_system.dto.request.EquipmentFailureRequestDto;
 import com.msdp.cps_system.service.AgentsOrchestratorService;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +19,7 @@ public class EquipmentEventPredictionController implements EquipmentEventPredict
     }
 
     @Override
-    public SourceSelectionResponseDto predictFailureImpact(
+    public EnergyDistributionResponseDto predictFailureImpact(
             @Valid @RequestBody EquipmentFailureRequestDto request) {
         return orchestratorService.processEvent(request);
     }

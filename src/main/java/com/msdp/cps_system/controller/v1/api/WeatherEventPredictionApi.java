@@ -1,6 +1,6 @@
 package com.msdp.cps_system.controller.v1.api;
 
-import com.msdp.cps_system.dto.response.SourceSelectionResponseDto;
+import com.msdp.cps_system.dto.response.EnergyDistributionResponseDto;
 import com.msdp.cps_system.dto.request.SuddenCloudCoverRequestDto;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -27,7 +27,8 @@ public interface WeatherEventPredictionApi {
             Processes sudden cloud cover events through the complete energy management chain:
             1. Predicts energy demand impact using AI-powered models
             2. Selects optimal energy sources based on availability and cost
-            3. Provides actionable source selection and operational recommendations
+            3. Optimizes energy distribution across selected sources
+            4. Provides detailed allocation plan with costs and operational recommendations
             """,
         operationId = "predictCloudCoverImpact"
     )
@@ -37,7 +38,7 @@ public interface WeatherEventPredictionApi {
             description = "Prediction completed successfully",
             content = @Content(
                 mediaType = "application/json",
-                schema = @Schema(implementation = SourceSelectionResponseDto.class),
+                schema = @Schema(implementation = EnergyDistributionResponseDto.class),
                 examples = @ExampleObject(
                     name = "Successful prediction",
                     value = """
@@ -111,7 +112,7 @@ public interface WeatherEventPredictionApi {
         )
     })
     @PostMapping("/cloud-cover-impact")
-    SourceSelectionResponseDto predictCloudCoverImpact(
+    EnergyDistributionResponseDto predictCloudCoverImpact(
         @Parameter(
             description = "Cloud cover event details for energy demand prediction",
             required = true,

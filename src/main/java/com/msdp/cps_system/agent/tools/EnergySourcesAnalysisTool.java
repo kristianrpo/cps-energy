@@ -32,8 +32,12 @@ public class EnergySourcesAnalysisTool {
     }
 
     @Tool(name = "checkCapacityAvailability", value = "Checks if available sources can meet a specific demand requirement, returns capacity analysis")
-    public String checkCapacityAvailability(String energySourcesJson, double requiredDemand) {
+    public String checkCapacityAvailability(String energySourcesJson, Double requiredDemand) {
         try {
+            if (requiredDemand == null) {
+                return "Error: Required demand parameter cannot be null";
+            }
+            
             List<EnergySourceInfoDto> sources = EnergySourcesAnalysisUtil.parseEnergySourcesJson(energySourcesJson, objectMapper);
             Map<String, Object> analysis = EnergySourcesAnalysisUtil.checkCapacityAvailability(sources, requiredDemand);
             return objectMapper.writeValueAsString(analysis);
