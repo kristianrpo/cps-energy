@@ -2,6 +2,7 @@ package com.msdp.cps_system.controller.v1;
 
 import com.msdp.cps_system.controller.v1.api.WeatherEventPredictionApi;
 import com.msdp.cps_system.dto.response.EnergyDistributionResponseDto;
+import com.msdp.cps_system.dto.request.IntenseSunlightRequestDto;
 import com.msdp.cps_system.dto.request.SuddenCloudCoverRequestDto;
 import com.msdp.cps_system.service.AgentsOrchestratorService;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +22,12 @@ public class WeatherEventPredictionController implements WeatherEventPredictionA
     @Override
     public EnergyDistributionResponseDto predictCloudCoverImpact(
             @Valid @RequestBody SuddenCloudCoverRequestDto request) {
+        return orchestratorService.processEvent(request);
+    }
+
+    @Override
+    public EnergyDistributionResponseDto predictIntenseSunlightImpact(
+            @Valid @RequestBody IntenseSunlightRequestDto request) {
         return orchestratorService.processEvent(request);
     }
 }

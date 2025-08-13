@@ -42,37 +42,15 @@ public interface EquipmentEventPredictionApi {
                 examples = @ExampleObject(
                     name = "Successful prediction",
                     value = """
-                        {
-                          "predictedDemand": 950.0,
-                          "confidence": 9,
-                          "timeHorizon": 180,
-                          "analysis": "Equipment PUMP-001 failure will reduce operational capacity by 25%. Alternative systems will compensate partially, increasing overall energy consumption by 15% during repair period.",
-                          "recommendations": [
-                            "Activate backup pump system immediately",
-                            "Redirect load to secondary production line",
-                            "Schedule maintenance during off-peak hours",
-                            "Monitor system pressure continuously"
-                          ],
-                          "keyFactors": [
-                            "Equipment criticality: High",
-                            "Backup systems availability: 75%",
-                            "Repair complexity: Mechanical",
-                            "Historical failure patterns"
-                          ],
-                          "eventType": "equipment_failure",
-                          "timestamp": "2024-01-15T14:20:00",
-                          "supportingData": {
-                            "backupCapacity": 75,
-                            "repairComplexity": "medium",
-                            "affectedSystems": ["cooling", "production"]
-                          }
-                        }
+
+
+                          
                         """
                 )
             )
         ),
         @ApiResponse(
-            responseCode = "400", 
+            responseCode = "400",
             description = "Invalid request parameters",
             content = @Content(
                 mediaType = "application/json",
@@ -80,20 +58,16 @@ public interface EquipmentEventPredictionApi {
                     name = "Validation error",
                     value = """
                         {
-                          "timestamp": "2024-01-15T14:20:00",
-                          "status": 400,
-                          "error": "Bad Request",
-                          "message": "Validation failed",
-                          "errors": [
-                            {
-                              "field": "equipmentId",
-                              "message": "Equipment ID is required"
-                            },
-                            {
-                              "field": "estimatedRepairTime",
-                              "message": "Estimated repair time must be positive"
-                            }
-                          ]
+                            "timestamp": "2024-01-15T10:30:00",
+                            "status": 400,
+                            "error": "Bad Request",
+                            "message": "Validation failed",
+                            "errors": [
+                                {
+                                    "field": "estimatedRepairTime",
+                                    "message": "Estimated repair time must be positive"
+                                }
+                            ]
                         }
                         """
                 )
@@ -108,20 +82,20 @@ public interface EquipmentEventPredictionApi {
                     name = "Server error",
                     value = """
                         {
-                          "timestamp": "2024-01-15T14:20:00",
-                          "status": 500,
-                          "error": "Internal Server Error",
-                          "message": "Equipment database temporarily unavailable"
+                            "timestamp": "2024-01-15T10:30:00",
+                            "status": 500,
+                            "error": "Internal Server Error",
+                            "message": "AI prediction service temporarily unavailable"
                         }
                         """
                 )
             )
         )
     })
-    @PostMapping("/failure-impact")
+    @PostMapping("/equipment-failure")
     EnergyDistributionResponseDto predictFailureImpact(
         @Parameter(
-            description = "Equipment failure details for energy demand prediction",
+            description = "Equipment failure event details for operational impact analysis",
             required = true,
             content = @Content(
                 mediaType = "application/json",
@@ -130,10 +104,73 @@ public interface EquipmentEventPredictionApi {
                     name = "Equipment failure event",
                     value = """
                         {
-                          "equipmentId": "PUMP-001",
-                          "failureType": "mechanical",
-                          "estimatedRepairTime": 120,
-                          "timestamp": "2024-01-15T14:20:00"
+                            "component": "Inverter #3",
+                            "estimatedRepairTime": 120,
+                            "timestamp": "2024-01-15T10:30:00",
+                            "energySourcesContext": {
+                              "availableSources": [
+                                {
+                                  "sourceType": "solar",
+                                  "currentCapacity": 450.0,
+                                  "maxCapacity": 800.0,
+                                  "currentUsage": 380.0,
+                                  "availabilityPercent": 92.0,
+                                  "status": "online",
+                                  "efficiency": 88.5,
+                                  "operationalCost": 0.02,
+                                  "startupTime": 0,
+                                  "constraints": ["weather_dependent", "daylight_only"],
+                                  "alerts": ["cloud_coverage_affecting_output"]
+                                },
+                                {
+                                  "sourceType": "grid",
+                                  "currentCapacity": 1200.0,
+                                  "maxCapacity": 1500.0,
+                                  "currentUsage": 950.0,
+                                  "availabilityPercent": 99.0,
+                                  "status": "online",
+                                  "efficiency": 95.0,
+                                  "operationalCost": 0.08,
+                                  "startupTime": 5,
+                                  "constraints": ["peak_hour_pricing"],
+                                  "alerts": []
+                                },
+                                {
+                                  "sourceType": "diesel_generator",
+                                  "currentCapacity": 0.0,
+                                  "maxCapacity": 600.0,
+                                  "currentUsage": 0.0,
+                                  "availabilityPercent": 95.0,
+                                  "status": "standby",
+                                  "efficiency": 82.0,
+                                  "operationalCost": 0.15,
+                                  "startupTime": 120,
+                                  "constraints": ["fuel_dependent", "emission_limits"],
+                                  "alerts": ["fuel_level_at_85%"]
+                                },
+                                {
+                                  "sourceType": "battery_storage",
+                                  "currentCapacity": 300.0,
+                                  "maxCapacity": 400.0,
+                                  "currentUsage": 50.0,
+                                  "availabilityPercent": 90.0,
+                                  "status": "online",
+                                  "efficiency": 93.0,
+                                  "operationalCost": 0.05,
+                                  "startupTime": 1,
+                                  "constraints": ["charge_dependent", "limited_duration"],
+                                  "alerts": ["charge_level_at_75%"]
+                                }
+                              ],
+                              "totalAvailableCapacity": 1950.0,
+                              "totalCurrentUsage": 1380.0,
+                              "gridConnectionStatus": "stable",
+                              "systemAlerts": [
+                                "cloud_cover_forecast_received",
+                                "solar_output_reduction_expected"
+                              ],
+                              "priorityStrategy": "cost_efficiency_with_reliability"
+                            }
                         }
                         """
                 )
