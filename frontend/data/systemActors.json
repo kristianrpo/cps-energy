@@ -1,0 +1,26 @@
+[
+    {
+        "id": "agent_1",
+        "name": "Demand Predictor Agent",
+        "role": "agent",
+        "avatar": "/images/icons/agent1.png"
+    },
+    {
+        "id": "agent_2",
+        "name": "Source Selector Agent",
+        "role": "agent",
+        "avatar": "/images/icons/agent2.png"
+    },
+    {
+        "id": "agent_3",
+        "name": "Energy Distributor Agent",
+        "role": "agent",
+        "avatar": "/images/icons/agent3.png"
+    },
+    {
+        "id": "user",
+        "name": "User",
+        "role": "user",
+        "avatar": "/images/icons/user.png"
+    }
+]

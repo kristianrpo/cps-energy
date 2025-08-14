@@ -1,0 +1,5 @@
+[
+    { "idSystemActor": "agent_1", "role": "agent", "content": "Hi 👋, I'm Agent 1. I will predict the energy demand based on the specific event." },
+    { "idSystemActor": "agent_2", "role": "agent", "content": "Hello, I'm Agent 2. I will determine the best energy sources to use based on the event parameters and Agent 1's prediction." },
+    { "idSystemActor": "agent_3", "role": "agent", "content": "Hi, I'm Agent 3. I will allocate the predicted energy demand (from Agent 1) across the available sources (identified by Agent 2)." }
+]
