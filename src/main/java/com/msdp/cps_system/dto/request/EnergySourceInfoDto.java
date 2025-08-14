@@ -8,6 +8,9 @@ import jakarta.validation.constraints.NotNull;
 import java.util.List;
 
 public record EnergySourceInfoDto(
+    @NotBlank(message = "Source id is required")
+    String sourceId,
+
     @NotBlank(message = "Source type is required")
     String sourceType,
     
@@ -40,9 +43,13 @@ public record EnergySourceInfoDto(
     @DecimalMin(value = "0.0", message = "Operational cost must be non-negative")
     Double operationalCost,
     
+    @NotNull(message = "Last change percentage is required")
+    Integer lastChangePercent,
+
     Integer startupTime,
     
     List<String> constraints,
     
     List<String> alerts
+
 ) {}

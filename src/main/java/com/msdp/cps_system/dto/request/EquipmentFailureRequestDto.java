@@ -8,11 +8,8 @@ import jakarta.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 public record EquipmentFailureRequestDto(
-    @NotBlank(message = "Equipment ID is required")
-    String equipmentId,
-    
-    @NotBlank(message = "Failure type is required")
-    String failureType,
+    @NotBlank(message = "Component is required")
+    String component,
     
     @Min(value = 0, message = "Estimated repair time must be positive")
     Integer estimatedRepairTime,
