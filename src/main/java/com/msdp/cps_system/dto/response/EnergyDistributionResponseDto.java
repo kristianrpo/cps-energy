@@ -49,6 +49,36 @@ public class EnergyDistributionResponseDto {
     private Map<String, Object> performanceMetrics;
     
     private String contingencyPlan;
+    
+    // Agent reasoning tracking
+    private AgentReasoningDto demandPredictorReasoning;
+    
+    private AgentReasoningDto sourceSelectorReasoning;
+    
+    private AgentReasoningDto energyDistributorReasoning;
+
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class AgentReasoningDto {
+        @NotNull
+        private String agentName;
+        
+        @NotNull
+        private String analysis;
+        
+        private List<String> keyFactors;
+        
+        private List<String> recommendations;
+        
+        private Integer confidence;
+        
+        private Map<String, Object> supportingData;
+        
+        private String strategy;
+        
+        private List<String> rationale;
+    }
 
     @Data
     @NoArgsConstructor
