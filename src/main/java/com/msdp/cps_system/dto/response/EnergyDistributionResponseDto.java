@@ -85,6 +85,9 @@ public class EnergyDistributionResponseDto {
     @AllArgsConstructor
     public static class SourceAllocationDto {
         @NotNull
+        private String sourceId;
+
+        @NotNull
         private String sourceType;
         
         @NotNull
@@ -98,6 +101,9 @@ public class EnergyDistributionResponseDto {
         
         @NotNull
         private String priority;
+
+        @NotNull
+        private Double lastChangePercent;
         
         private String justification;
         
