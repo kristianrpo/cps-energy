@@ -28,9 +28,9 @@ export default function Home() {
 
   return (
     <div className="w-full min-h-screen text-white p-4">
-      <div className="flex flex-col lg:flex-row gap-6">
+      <div className="flex flex-col lg:flex-row gap-6 justify-space-between">
         <EnergyOverviewSection energySources={energyData} />
-        <div className="w-[100%]">
+        <div className="w-[100%] flex flex-col justify-between">
           <CapacitySection energyData={energyData} />
           <ChatSection initialMessages={predefinedMessages} onEnergyUpdate={handleEnergyUpdate} />
         </div>

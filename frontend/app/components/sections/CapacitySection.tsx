@@ -7,11 +7,11 @@ interface CapacitySectionProps {
 
 export default function CapacitySection({ energyData }: CapacitySectionProps) {
   return (
-    <div>
+    <div className="">
       <h2 className="text-white text-2xl font-bold">
         Capacity Overview
       </h2>
-      <div className="mt-4 flex flex-row flex-wrap">
+      <div className="mt-4 flex flex-wrap justify-content-between">
         {energyData.map((source, index) => (
         <CapacityCard
             key={index}
