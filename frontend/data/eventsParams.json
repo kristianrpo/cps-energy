@@ -1,0 +1,20 @@
+{
+    "suddenCloudCover": {
+        "intensity": 75,
+        "duration": 45,
+        "forecastAccuracy": 85,
+        "timestamp": "2024-01-15T14:30:00"
+    },
+    "intenseSunlightImpact":{
+        "solarIrradiance": 90,
+        "uvIndex": 12,
+        "duration": 60,
+        "forecastAccuracy": 80,
+        "timestamp": "2024-01-15T10:30:00"
+    },
+    "equipmentFailure":{
+        "component": "Inverter #3",
+        "estimatedRepairTime": 120,
+        "timestamp": "2024-01-15T10:30:00"
+    }
+}

@@ -1,0 +1,84 @@
+{
+    "availableSources": [
+        {
+            "sourceId": "solar_panel",
+            "sourceType": "Solar Panel",
+            "maxCapacity": 800.0,
+            "currentUsage": 380.0,
+            "currentCapacity": 400.0,
+            "availabilityPercent": 52,
+            "status": "online",
+            "efficiency": 88.5,
+            "operationalCost": 0.02,
+            "startupTime": 0,
+            "constraints": [
+                "weather_dependent",
+                "daylight_only",
+                "seasonal_variation"
+            ],
+            "alerts": [],
+            "lastChangePercent": -5.0
+        },
+        {
+            "sourceId": "grid", 
+            "sourceType": "Grid",
+            "maxCapacity": 1500.0,
+            "currentCapacity": 1000.0,
+            "currentUsage": 950.0,
+            "availabilityPercent": 37.0,
+            "status": "online",
+            "efficiency": 95.0,
+            "operationalCost": 0.08,
+            "startupTime": 5,
+            "constraints": [
+                "peak_hour_pricing",
+                "supplier_contract_limits"
+            ],
+            "alerts": [],
+            "lastChangePercent": 5.0
+        },
+        {
+            "sourceId": "diesel_generator",
+            "sourceType": "Diesel Generator",
+            "maxCapacity": 600.0,
+            "currentUsage": 0.0,
+            "currentCapacity": 0.0,
+            "availabilityPercent": 100.0,
+            "status": "unused",
+            "efficiency": 82.0,
+            "operationalCost": 0.15,
+            "startupTime": 120,
+            "constraints": [
+                "fuel_dependent",
+                "emission_limits",
+                "high_startup_time"
+            ],
+            "alerts": [],
+            "lastChangePercent": 5.0
+        },
+        {
+            "sourceId": "battery_storage",
+            "sourceType": "Battery Storage",
+            "maxCapacity": 400.0,
+            "currentUsage": 50.0,
+            "currentCapacity": 400.0,
+            "availabilityPercent": 88.0,
+            "status": "online",
+            "efficiency": 93.0,
+            "operationalCost": 0.05,
+            "startupTime": 1,
+            "constraints": [
+                "charge_dependent",
+                "limited_duration",
+                "degradation_over_time"
+            ],
+            "alerts": [],
+            "lastChangePercent": 5.0
+        }
+    ],
+    "totalAvailableCapacity": 1950.0,
+    "totalCurrentUsage": 1380.0,
+    "gridConnectionStatus": "stable",
+    "systemAlerts": [],
+    "priorityStrategy": "cost_efficiency_with_reliability"
+}
