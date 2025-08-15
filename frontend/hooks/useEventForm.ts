@@ -33,6 +33,7 @@ export function useEventForm(
     const backendKey = eventType.trim().replace(/[\s-]+/g, "_").toUpperCase().toString() as BackendEventType;
     const params = requestBuilder(eventType, sourceType);
 
+    console.log(params);
     try {
       const { data } = await axios.post(BACKEND_URLS[backendKey], params, {
         timeout: 300000
@@ -55,9 +56,9 @@ export function useEventForm(
           sourceType: allocation.sourceType,
           maxCapacity: allocation.maxCapacity,
           currentUsage: allocation.newUsage,
-          availabilityPercent: (100 - allocation.utilizationPercent).toFixed(2),
+          availabilityPercent: (100 - allocation.utilizationPercent).toFixed(0),
           status: allocation.status,
-          lastChangePercent: allocation.lastChangePercent || 0,
+          lastChangePercent: (Number((allocation.newUsage/allocation.maxCapacity).toFixed(1)) * 100) - (Number((allocation.previousUsage/allocation.maxCapacity).toFixed(1)) * 100),
           previousUsage: allocation.previousUsage,
         }));
 

@@ -10,10 +10,10 @@ export const extractAgentMessages= (responseData: any) => {
       });
     }
     
-    if (responseData.sourceSelectorReasoning?.analysis) {
+    if (responseData.sourceSelectorReasoning?.recommendations) {
       agents.push({
         name: responseData.sourceSelectorReasoning.agentName || "SourceSelectorAgent",
-        analysis: responseData.sourceSelectorReasoning.analysis,
+        analysis: responseData.sourceSelectorReasoning.rationale.map((reason: string) => reason).join(" "),
         recommendations: responseData.sourceSelectorReasoning.recommendations,
         finalDecision: responseData.sourceAllocations.map((allocation: any) => allocation.status==="online" ? `${allocation.sourceType}` : "").join(", ").replace(", ,", ",")
       });
@@ -24,7 +24,7 @@ export const extractAgentMessages= (responseData: any) => {
         name: responseData.energyDistributorReasoning.agentName || "EnergyDistributorAgent",
         analysis: responseData.energyDistributorReasoning.analysis,
         recommendations: responseData.energyDistributorReasoning.recommendations,
-        finalDecision: responseData.sourceAllocations.map((allocation: any) => `${allocation.sourceType}: ${allocation.allocatedCapacity} kW - ${allocation.priority}`).join(", ")
+        finalDecision: responseData.sourceAllocations.map((allocation: any) => `${allocation.sourceType}: ${allocation.allocatedCapacity} kW - Priority when distribute new demand: ${allocation.priority}`).join(", ")
       });
     }
     
