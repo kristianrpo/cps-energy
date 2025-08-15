@@ -24,7 +24,7 @@ export const extractAgentMessages= (responseData: any) => {
         name: responseData.energyDistributorReasoning.agentName || "EnergyDistributorAgent",
         analysis: responseData.energyDistributorReasoning.analysis,
         recommendations: responseData.energyDistributorReasoning.recommendations,
-        finalDecision: responseData.sourceAllocations.map((allocation: any) => `${allocation.sourceType}: ${allocation.allocatedCapacity} kW - Priority when distribute new demand: ${allocation.priority}`).join(", ")
+        finalDecision: responseData.sourceAllocations.map((allocation: any) => `${allocation.sourceType}: ${allocation.newUsage} kW - Priority when distribute new demand: ${allocation.priority}`).join(", ")
       });
     }
     
