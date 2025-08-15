@@ -24,24 +24,7 @@ export default function EnergyOverviewSection({ energySources }: EnergyOverviewS
               currentUsage={source.currentUsage}
               status={source.status}
               lastChangePercent={source.lastChangePercent}
-            />
-          ))}
-        </div>
-      </div>
-      <div>
-        <h2 className="text-white text-2xl font-bold my-4">
-          Capacity Overview
-        </h2>
-        <CapacityCard
-            sourceType="General"
-            maxCapacity={totalAvailableCapacity}
-          />
-        <div className="mt-4 space-y-4">
-          {energySources.map((source, index) => (
-            <CapacityCard
-              key={index}
-              sourceType={source.sourceType}
-              maxCapacity={source.maxCapacity}
+              previousUsage={source.previousUsage}
             />
           ))}
         </div>
@@ -49,4 +32,3 @@ export default function EnergyOverviewSection({ energySources }: EnergyOverviewS
     </div>
   );
 }
-

@@ -1,21 +1,39 @@
+"use client";
+
 import EnergyOverviewSection from "@/app/components/sections/EnergyOverviewSection";
 import ChatSection from "@/app/components/sections/ChatSection";
 import energySourcesContext from "@/data/energySourcesContext.json";
 import predefinedMessages from "@/data/predefinedMessages.json";
-
-export async function generateMetadata() {
-  return {
-    title: "Industrial Energy Management System",
-    description: "A comprehensive system for managing industrial energy consumption and efficiency based on AI Agents (ACPS) and an adaptive cyber-physical focus. ",
-  };
-}
+import { EnergySourceType } from "@/app/types/energySource";
+import { useState } from "react";
+import CapacitySection from "./components/sections/CapacitySection";
 
 export default function Home() {
+  const [energyData, setEnergyData] = useState<EnergySourceType[]>([
+    ...energySourcesContext.availableSources.map((source) => ({
+      sourceId: source.sourceId,
+      sourceType: source.sourceType,
+      maxCapacity: source.maxCapacity,
+      currentUsage: source.currentUsage,
+      availabilityPercent: source.availabilityPercent,
+      status: source.status,
+      lastChangePercent: source.lastChangePercent || 0,
+      previousUsage: 0,
+    })),
+  ]);
+
+  const handleEnergyUpdate = (newEnergyData: EnergySourceType[]) => {
+    setEnergyData(newEnergyData);
+  };
+
   return (
     <div className="w-full min-h-screen text-white p-4">
       <div className="flex flex-col lg:flex-row gap-6">
-        <EnergyOverviewSection energySources={energySourcesContext.availableSources} />
-        <ChatSection initialMessages={predefinedMessages} />
+        <EnergyOverviewSection energySources={energyData} />
+        <div className="w-[100%]">
+          <CapacitySection energyData={energyData} />
+          <ChatSection initialMessages={predefinedMessages} onEnergyUpdate={handleEnergyUpdate} />
+        </div>
       </div>
     </div>
   );

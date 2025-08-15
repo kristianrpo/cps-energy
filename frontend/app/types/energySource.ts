@@ -6,4 +6,5 @@ export type EnergySourceType = {
   status: string;
   lastChangePercent: number;
   maxCapacity: number;
+  previousUsage?: number;
 };

@@ -9,9 +9,10 @@ interface EventFormProps {
   setMessages: React.Dispatch<
     React.SetStateAction<{ idSystemActor: string; role: string; content: string }[]>
   >;
+  onEnergyUpdate: (newData: EnergySourceType[]) => void;
 }
 
-export default function EventForm({ energySources, setMessages }: EventFormProps) {
+export default function EventForm({ energySources, setMessages, onEnergyUpdate }: EventFormProps) {
   const { eventType, setEventType, sourceType, setSourceType, handleSubmit } =
     useEventForm(
       (message) =>
@@ -23,7 +24,8 @@ export default function EventForm({ energySources, setMessages }: EventFormProps
         setMessages((prev) => [
           ...prev,
           { idSystemActor: idSystemActor, role: "agent", content },
-        ])
+        ]),
+        onEnergyUpdate
     );
 
   return (

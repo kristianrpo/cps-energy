@@ -5,12 +5,13 @@ import { BACKEND_URLS } from "@/constants/urls";
 import requestBuilder from "@/utils/requestBuilder";
 import { extractAgentMessages } from "@/utils/extractAgentMessages";
 import { formatAgentMessage } from "@/utils/formatAgentMessage";
-import { AgentMessageType, AgentIdType  } from "@/app/types/agents";
-
+import { AgentMessageType, AgentIdType } from "@/app/types/agents";
+import { EnergySourceType } from "@/app/types/energySource";
 
 export function useEventForm(
   onSubmit: (message: string) => void,
-  onSystemResponse?: (content: string, idSystemActor: string) => void
+  onSystemResponse?: (content: string, idSystemActor: string) => void,
+  onEnergyUpdate?: (energySource: EnergySourceType[]) => void
 ) {
   const [eventType, setEventType] = useState("");
   const [sourceType, setSourceType] = useState("");
@@ -18,7 +19,6 @@ export function useEventForm(
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!eventType.trim()) return;
-    
     let message = `Selected event: ${eventType}`;
     if (eventType === "equipment_failure" && sourceType?.trim()) {
       message += ` | Failed equipment: ${sourceType}`;
@@ -39,7 +39,6 @@ export function useEventForm(
       });
 
       const agentMessages = extractAgentMessages(data);
-
       if (onSystemResponse) {
         agentMessages.forEach((agent: AgentMessageType, index: number) => {
           setTimeout(() => {
@@ -50,12 +49,29 @@ export function useEventForm(
           }, index * 1000);
         });
       }
-      } catch (error) {
-        if (onSystemResponse) {
-          onSystemResponse("⚠️ Error processing event.", "agent_1");
-        }
+
+        const updatedEnergyData: EnergySourceType[] = data.sourceAllocations.map((allocation: any) => ({
+          sourceId: allocation.sourceId,
+          sourceType: allocation.sourceType,
+          maxCapacity: allocation.maxCapacity,
+          currentUsage: allocation.newUsage,
+          availabilityPercent: (100 - allocation.utilizationPercent).toFixed(2),
+          status: allocation.status,
+          lastChangePercent: allocation.lastChangePercent || 0,
+          previousUsage: allocation.previousUsage,
+        }));
+
+        setTimeout(() => {
+          if (onEnergyUpdate) {
+            onEnergyUpdate(updatedEnergyData);
+          }
+        }, agentMessages.length * 1000 + 500);
+    } catch (error) {
+      if (onSystemResponse) {
+        onSystemResponse("⚠️ Error processing event.", "agent_1");
       }
-    
+    }
+   
     setEventType("");
     setSourceType("");
   };
