@@ -47,6 +47,8 @@ public class AgentsOrchestratorService {
             demandPrediction.setEventType(request.getEventType().getCode());
             demandPrediction.setTimestamp(LocalDateTime.now());
 
+            System.out.println("Demand Prediction: " + demandPrediction);
+
             // Step 2: Convert energy sources context to JSON string for the agents
             String energySourcesJson = objectMapper.writeValueAsString(request.getEnergySourcesContext());
 
@@ -61,6 +63,8 @@ public class AgentsOrchestratorService {
                     energySourcesJson);
             sourceSelection.setTimestamp(LocalDateTime.now());
 
+            System.out.println("Source Selection: " + sourceSelection);
+
             // Step 4: Convert selected sources to JSON for distribution optimization
             String selectedSourcesJson = objectMapper.writeValueAsString(sourceSelection.getSelectedSources());
 
@@ -72,6 +76,8 @@ public class AgentsOrchestratorService {
                     energySourcesJson,
                     demandPrediction.getTimeHorizon(),
                     demandPrediction.getEventType());
+
+            System.out.println("Energy Distribution: " + energyDistribution);
 
             energyDistribution.setTimestamp(LocalDateTime.now());
 

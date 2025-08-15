@@ -43,8 +43,8 @@ public record EnergySourceInfoDto(
     @DecimalMin(value = "0.0", message = "Operational cost must be non-negative")
     Double operationalCost,
     
-    @NotNull(message = "Last change percentage is required")
-    Integer lastChangePercent,
+    //@NotNull(message = "Last change percentage is required")
+    //Integer lastChangePercent,y
 
     Integer startupTime,
     
