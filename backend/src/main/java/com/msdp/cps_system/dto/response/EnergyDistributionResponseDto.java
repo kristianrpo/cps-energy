@@ -91,19 +91,16 @@ public class EnergyDistributionResponseDto {
         private String sourceType;
         
         @NotNull
-        private Double allocatedCapacity;
-        
-        @NotNull
-        private Double utilizationPercent;
-        
-        @NotNull
-        private Double cost;
-        
-        @NotNull
         private String priority;
 
         @NotNull
-        private Double lastChangePercent;
+        private Double utilizationPercent;
+        
+        private Double maxCapacity;
+
+        private Double previousUsage;
+
+        private Double newUsage;
         
         private String justification;
         
@@ -111,26 +108,6 @@ public class EnergyDistributionResponseDto {
         
         private List<String> operationalNotes;
         
-        private Double previousUsage;
-        
-        private Double newUsage;
-        
-        private Double previousCapacity;
-        
-        private Double newCurrentCapacity;
-        
-        private Double maxCapacity;
-        
         private String status;
-        
-        private Double operationalCost;
-        
-        private Double efficiency;
-        
-        private List<String> constraints;
-        
-        private List<String> alerts;
-        
-        private Map<String, Object> impactAnalysis;
     }
 }
