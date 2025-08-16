@@ -2,7 +2,6 @@ package com.msdp.cps_system.dto.response;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Map;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,8 +14,6 @@ public class DemandPredictionResponseDto {
     private int timeHorizon;
     private String analysis;
     private List<String> recommendations;
-    private List<String> keyFactors;
     private String eventType;
     private LocalDateTime timestamp;
-    private Map<String, Object> supportingData;
 }

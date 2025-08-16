@@ -26,7 +26,8 @@ import dev.langchain4j.service.spring.AiService;
     6. Prioritize sources without any failure (It is prohibit to select elements damaged)
     
     SELECTION CRITERIA (in priority order):
-    1. Availability and capacity to meet demand
+    1. Availability and capacity to meet demand (do not use sources that are damaged in event)
+
     2. Cost efficiency (prefer lower cost sources when available)
     3. Reliability and operational stability
     4. Environmental impact and sustainability
