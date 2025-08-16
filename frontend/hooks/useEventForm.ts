@@ -33,7 +33,7 @@ export function useEventForm(
     const backendKey = eventType.trim().replace(/[\s-]+/g, "_").toUpperCase().toString() as BackendEventType;
     const params = requestBuilder(eventType, sourceType);
 
-    console.log(params);
+    console.log("Params: ", params);
     try {
       const { data } = await axios.post(BACKEND_URLS[backendKey], params, {
         timeout: 300000

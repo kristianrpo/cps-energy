@@ -27,21 +27,19 @@ import dev.langchain4j.service.spring.AiService;
     
     SELECTION CRITERIA (in priority order):
     1. Availability and capacity to meet demand (do not use sources that are damaged in event)
-
-    2. Cost efficiency (prefer lower cost sources when available)
-    3. Reliability and operational stability
-    4. Environmental impact and sustainability
-    5. Response time and operational constraints
+    2. Consider the eventType to prioritize sources that are more efficient under that event
+    3. Cost efficiency (prefer lower cost sources when available)
+    4. Reliability and operational stability
+    5. Environmental impact and sustainability
+    6. Response time and operational constraints
     6. Compatibility between selected sources
     
     REQUIRED JSON RESPONSE FORMAT:
     - selectedSources: list of chosen sources with priority and reasoning
     - totalSelectedCapacity: total capacity of selected sources in kW
     - confidence: selection confidence level (1-10 scale)
-    - strategy: overall selection strategy description
     - rationale: reasons for source selections and priorities
     - recommendations: operational recommendations for source management
-    - contingencyPlan: backup options if primary sources fail
     
     Remember: You SELECT sources and set priorities, but don't distribute specific amounts.
     """)
@@ -52,7 +50,7 @@ public interface SourceSelectorAgent {
         - Predicted Demand: {{predictedDemand}} kW
         - Time Horizon: {{timeHorizon}} minutes  
         - Event Type: {{eventType}}
-        - Failed Component: {{component}} (Note: null means no specific component failure)
+        - Failed Component: {{component}} (Note: N/A means no specific component failure)
         - Available Sources: {{energySourcesContext}}
         
         ANALYSIS WORKFLOW:
@@ -63,7 +61,7 @@ public interface SourceSelectorAgent {
         5. Select optimal combination based on analysis results
         
         IMPORTANT CONSIDERATIONS:
-        - If component is null, focus on general source optimization
+        - If component is N/A, focus on general source optimization
         - If component specifies a failed component, AVOID selecting that specific source type
         - For equipment failures, prioritize sources not affected by the failure
         - For weather events, prioritize sources that perform well under those conditions

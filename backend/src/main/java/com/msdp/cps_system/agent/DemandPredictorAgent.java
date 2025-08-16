@@ -18,6 +18,7 @@ import dev.langchain4j.service.spring.AiService;
     2. Consider historical consumption patterns
     3. Evaluate weather effects on equipment efficiency
     4. Predict operational adjustments needed
+    5. Consider the eventType to consider the impact of the event on the demand
     
     JSON RESPONSE FORMAT:
     {
@@ -33,6 +34,7 @@ public interface DemandPredictorAgent {
     @UserMessage("""
         Predict energy demand impact for:
         - Event: {{eventType}}
+        - Failed Component: {{component}} (Note: N/A means no specific component failure)
         - Details: {{request}}
         - Time: {{timestamp}}
         
@@ -55,6 +57,7 @@ public interface DemandPredictorAgent {
     DemandPredictionResponseDto predict(
             @V("request") BaseEventRequestDto request,
             @V("eventType") String eventType,
+            @V("component") String component,
             @V("timestamp") String timestamp
     );
 }

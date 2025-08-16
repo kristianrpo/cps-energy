@@ -41,10 +41,13 @@ public class AgentsOrchestratorService {
 
     public EnergyDistributionResponseDto processEvent(BaseEventRequestDto request) {
         try {
+            String componentInfo = extractComponentInfo(request);
+            
             // Step 1: Predict energy demand from the event
             DemandPredictionResponseDto demandPrediction = predictorAgent.predict(
                     request,
                     request.getEventType().getCode(),
+                    componentInfo,
                     request.getTimestamp().toString());
             demandPrediction.setEventType(request.getEventType().getCode());
             demandPrediction.setTimestamp(LocalDateTime.now());
@@ -55,7 +58,6 @@ public class AgentsOrchestratorService {
             String energySourcesJson = objectMapper.writeValueAsString(request.getEnergySourcesContext());
 
             // Step 3: Select optimal energy sources based on the prediction and available
-            String componentInfo = extractComponentInfo(request);
             
             SourceSelectionResponseDto sourceSelection = sourceSelectorAgent.selectSources(
                     demandPrediction,
@@ -79,7 +81,8 @@ public class AgentsOrchestratorService {
                     selectedSourcesJson,
                     energySourcesJson,
                     demandPrediction.getTimeHorizon(),
-                    demandPrediction.getEventType());
+                    demandPrediction.getEventType(),
+                    componentInfo);
 
             System.out.println("Energy Distribution: " + energyDistribution);
 
@@ -105,6 +108,6 @@ public class AgentsOrchestratorService {
                 return equipmentRequest.component();
             }
         }
-        return null;
+        return "N/A";
     }
 }
