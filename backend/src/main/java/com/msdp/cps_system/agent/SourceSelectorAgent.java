@@ -51,6 +51,7 @@ public interface SourceSelectorAgent {
         - Predicted Demand: {{predictedDemand}} kW
         - Time Horizon: {{timeHorizon}} minutes  
         - Event: {{eventType}}
+        - Failed Component: {{component}}
         - Available Sources: {{energySourcesContext}}
         
         ANALYSIS WORKFLOW:
@@ -68,6 +69,7 @@ public interface SourceSelectorAgent {
             @V("timeHorizon") int timeHorizon,
             @V("confidence") int confidence,
             @V("eventType") String eventType,
+            @V("component") String component,
             @V("energySourcesContext") String energySourcesContext
     );
 }

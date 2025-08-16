@@ -60,6 +60,7 @@ public class AgentsOrchestratorService {
                     demandPrediction.getTimeHorizon(),
                     demandPrediction.getConfidence(),
                     demandPrediction.getEventType(),
+                    request.getComponent(),
                     energySourcesJson);
             sourceSelection.setTimestamp(LocalDateTime.now());
 
