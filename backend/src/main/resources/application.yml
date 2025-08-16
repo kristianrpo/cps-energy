@@ -14,10 +14,18 @@ langchain4j:
   open-ai:
     chat-model:
       api-key: ${OPENAI_API_KEY}
-      model-name: gpt-4o-mini
+      model-name: gpt-4o
       log-requests: true
       log-responses: true
       temperature: 0.3
-      max-tokens: 2000
+      # max-tokens: 2000
+      max-completion-tokens: 2000
       timeout: PT180S
       max-retries: 3
+
+logging:
+  level:
+    dev.langchain4j: DEBUG
+    okhttp3: DEBUG
+  pattern:
+    console: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"

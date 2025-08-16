@@ -67,15 +67,9 @@ public class EnergyDistributionResponseDto {
         @NotNull
         private String analysis;
         
-        private List<String> keyFactors;
-        
         private List<String> recommendations;
         
         private Integer confidence;
-        
-        private Map<String, Object> supportingData;
-        
-        private String strategy;
         
         private List<String> rationale;
     }
@@ -91,46 +85,21 @@ public class EnergyDistributionResponseDto {
         private String sourceType;
         
         @NotNull
-        private Double allocatedCapacity;
-        
-        @NotNull
-        private Double utilizationPercent;
-        
-        @NotNull
-        private Double cost;
-        
-        @NotNull
         private String priority;
 
         @NotNull
-        private Double lastChangePercent;
+        private Double utilizationPercent;
+        
+        private Double maxCapacity;
+
+        private Double previousUsage;
+
+        private Double newUsage;
         
         private String justification;
         
         private Integer startupTimeMinutes;
         
-        private List<String> operationalNotes;
-        
-        private Double previousUsage;
-        
-        private Double newUsage;
-        
-        private Double previousCapacity;
-        
-        private Double newCurrentCapacity;
-        
-        private Double maxCapacity;
-        
         private String status;
-        
-        private Double operationalCost;
-        
-        private Double efficiency;
-        
-        private List<String> constraints;
-        
-        private List<String> alerts;
-        
-        private Map<String, Object> impactAnalysis;
     }
 }

@@ -44,7 +44,7 @@
             "currentUsage": 0.0,
             "currentCapacity": 0.0,
             "availabilityPercent": 100.0,
-            "status": "unused",
+            "status": "offline",
             "efficiency": 82.0,
             "operationalCost": 0.15,
             "startupTime": 120,

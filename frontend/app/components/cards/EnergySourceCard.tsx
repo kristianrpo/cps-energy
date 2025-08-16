@@ -10,12 +10,35 @@ interface EnergySourceCardProps {
 
 export default function EnergySourceCard({ sourceType, availabilityPercent, currentUsage, status, lastChangePercent, previousUsage, className  }: EnergySourceCardProps) {
   return (
-    <div className={`flex min-w-[158px] flex-1 flex-col gap-2 rounded-lg p-6 border border-[#cee8ce] my-4 ${className}`}  >
-      <p className="text-white text-base font-medium leading-normal">{sourceType}</p>
-      <p className="text-white tracking-light text-2xl font-bold leading-tight"> Current Usage: <span className="text-yellow-500"> {currentUsage} kW </span> (<span className={`${lastChangePercent >= 0 ? "text-[#078823]" : "text-red-500"} text-base font-medium leading-normal`}> {lastChangePercent >= 0 ? `+${lastChangePercent}%` : `${lastChangePercent}%`} </span> ) </p> 
-      <p className="text-white tracking-light text-2xl font-bold leading-tight"> Previous Usage: <span className="text-yellow-500"> {previousUsage? previousUsage : 0} kW </span> </p>
-      <p className="text-white tracking-light text-2xl font-bold leading-tight"> Availability Percent: <span className="text-yellow-500"> {availabilityPercent} %</span></p>
-      <p className={`text-base font-medium leading-normal ${status.toLocaleLowerCase() === "online" ? "text-[#078823]" : "text-red-500"}`}>{status}</p>
+    <div className={`bg-gray-900/60 backdrop-blur-sm rounded-lg p-4 border border-gray-600 hover:border-gray-500 transition-all duration-200 ${className}`}>
+      <div className="mb-3">
+        <h3 className="text-white text-lg font-semibold">{sourceType}</h3>
+        <p className={`text-sm font-medium ${status.toLowerCase() === "online" ? "text-green-400" : "text-red-400"}`}>
+          {status}
+        </p>
+      </div>
+      
+      <div className="space-y-2">
+        <div className="flex justify-between items-center">
+          <span className="text-gray-300 text-sm">Current Usage:</span>
+          <div className="flex items-center gap-2">
+            <span className="text-yellow-400 font-bold">{currentUsage} kW</span>
+            <span className={`text-xs px-2 py-1 rounded-full ${lastChangePercent >= 0 ? "bg-green-500/20 text-green-400" : "bg-red-500/20 text-red-400"}`}>
+              {lastChangePercent >= 0 ? `+${lastChangePercent}%` : `${lastChangePercent}%`}
+            </span>
+          </div>
+        </div>
+        
+        <div className="flex justify-between items-center">
+          <span className="text-gray-300 text-sm">Previous Usage:</span>
+          <span className="text-gray-400 font-medium">{previousUsage || 0} kW</span>
+        </div>
+        
+        <div className="flex justify-between items-center">
+          <span className="text-gray-300 text-sm">Availability:</span>
+          <span className="text-yellow-400 font-bold">{availabilityPercent}%</span>
+        </div>
+      </div>
     </div>
   );
 }

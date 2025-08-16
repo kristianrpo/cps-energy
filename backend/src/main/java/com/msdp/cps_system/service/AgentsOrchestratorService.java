@@ -4,6 +4,8 @@ import com.msdp.cps_system.dto.response.DemandPredictionResponseDto;
 import com.msdp.cps_system.dto.response.SourceSelectionResponseDto;
 import com.msdp.cps_system.dto.response.EnergyDistributionResponseDto;
 import com.msdp.cps_system.dto.request.BaseEventRequestDto;
+import com.msdp.cps_system.dto.request.EquipmentFailureRequestDto;
+import com.msdp.cps_system.enums.EventType;
 import com.msdp.cps_system.util.AgentReasoningMapper;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -39,10 +41,13 @@ public class AgentsOrchestratorService {
 
     public EnergyDistributionResponseDto processEvent(BaseEventRequestDto request) {
         try {
+            String componentInfo = extractComponentInfo(request);
+            
             // Step 1: Predict energy demand from the event
             DemandPredictionResponseDto demandPrediction = predictorAgent.predict(
                     request,
                     request.getEventType().getCode(),
+                    componentInfo,
                     request.getTimestamp().toString());
             demandPrediction.setEventType(request.getEventType().getCode());
             demandPrediction.setTimestamp(LocalDateTime.now());
@@ -53,13 +58,14 @@ public class AgentsOrchestratorService {
             String energySourcesJson = objectMapper.writeValueAsString(request.getEnergySourcesContext());
 
             // Step 3: Select optimal energy sources based on the prediction and available
-            // sources
+            
             SourceSelectionResponseDto sourceSelection = sourceSelectorAgent.selectSources(
                     demandPrediction,
                     demandPrediction.getPredictedDemand(),
                     demandPrediction.getTimeHorizon(),
                     demandPrediction.getConfidence(),
                     demandPrediction.getEventType(),
+                    componentInfo,
                     energySourcesJson);
             sourceSelection.setTimestamp(LocalDateTime.now());
 
@@ -75,7 +81,8 @@ public class AgentsOrchestratorService {
                     selectedSourcesJson,
                     energySourcesJson,
                     demandPrediction.getTimeHorizon(),
-                    demandPrediction.getEventType());
+                    demandPrediction.getEventType(),
+                    componentInfo);
 
             System.out.println("Energy Distribution: " + energyDistribution);
 
@@ -93,5 +100,14 @@ public class AgentsOrchestratorService {
         } catch (Exception e) {
             throw new RuntimeException("Error processing event: " + e.getMessage(), e);
         }
+    }
+    
+    private String extractComponentInfo(BaseEventRequestDto request) {
+        if (request.getEventType() == EventType.EQUIPMENT_FAILURE) {
+            if (request instanceof EquipmentFailureRequestDto equipmentRequest) {
+                return equipmentRequest.component();
+            }
+        }
+        return "N/A";
     }
 }
