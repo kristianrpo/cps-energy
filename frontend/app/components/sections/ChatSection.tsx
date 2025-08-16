@@ -13,8 +13,11 @@ export default function ChatSection({ initialMessages, onEnergyUpdate }: { initi
   const energySources = energySourcesContext.availableSources;
 
   return (
-    <div className="w-[100%] bg-gray-700 rounded-lg p-4 border border-white h-[85vh] flex flex-col">
-      <div ref={containerRef} className="flex-1 overflow-y-auto space-y-4 pr-2">
+    <div className="bg-gray-800/50 rounded-lg border border-gray-600 h-full flex flex-col">
+      <div className="p-4 border-b border-gray-600">
+        <h2 className="text-white text-xl font-bold">System Chat</h2>
+      </div>
+      <div ref={containerRef} className="flex-1 overflow-y-auto p-4 space-y-4">
         {messages.map((msg, idx) => (
           <MessageComponent
             key={idx}
@@ -24,7 +27,9 @@ export default function ChatSection({ initialMessages, onEnergyUpdate }: { initi
           />
         ))}
       </div>
-      <EventForm setMessages={setMessages} energySources={energySources} onEnergyUpdate={onEnergyUpdate} />
+      <div className="p-4 border-t border-gray-600">
+        <EventForm setMessages={setMessages} energySources={energySources} onEnergyUpdate={onEnergyUpdate} />
+      </div>
     </div>
   );
 }

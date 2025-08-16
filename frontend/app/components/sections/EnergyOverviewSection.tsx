@@ -10,12 +10,12 @@ export default function EnergyOverviewSection({ energySources }: EnergyOverviewS
   const totalAvailableCapacity = energySourceContext.totalAvailableCapacity;
   
   return (
-    <div className="w-full lg:w-1/3 space-y-6">
-      <div>
-        <h2 className="text-white text-2xl font-bold mb-4">
+    <div className="h-full">
+      <div className="bg-gray-800/50 rounded-lg p-6 h-full border border-gray-600">
+        <h2 className="text-white text-2xl font-bold mb-6">
           Energy Source Overview
         </h2>
-        <div className="space-y-4">
+        <div className="space-y-4 h-[calc(100%-4rem)] overflow-y-auto pr-2">
           {energySources.map((source, index) => (
             <EnergySourceCard
               key={index}
