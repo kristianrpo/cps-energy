@@ -58,7 +58,6 @@ public class AgentsOrchestratorService {
             String energySourcesJson = objectMapper.writeValueAsString(request.getEnergySourcesContext());
 
             // Step 3: Select optimal energy sources based on the prediction and available
-            
             SourceSelectionResponseDto sourceSelection = sourceSelectorAgent.selectSources(
                     demandPrediction,
                     demandPrediction.getPredictedDemand(),
@@ -71,7 +70,6 @@ public class AgentsOrchestratorService {
 
             System.out.println("Source Selection: " + sourceSelection);
 
-            // Step 4: Convert selected sources to JSON for distribution optimization
             String selectedSourcesJson = objectMapper.writeValueAsString(sourceSelection.getSelectedSources());
 
             // Step 5: Optimize energy distribution across selected sources

@@ -14,10 +14,8 @@ public class EnergyDistributionUtil {
         double remainingDemand = totalDemand;
         double totalCost = 0.0;
         
-        // Sort sources based on optimization criteria
         List<Map<String, Object>> sortedSources = sortSourcesByOptimization(allAvailableSources, optimizationCriteria);
         
-        // Process ALL sources, assigning capacity where needed
         for (Map<String, Object> source : allAvailableSources) {
             String sourceType = (String) source.get("sourceType");
             double sourceCapacity = getDoubleValue(source, "currentCapacity", 0.0);
@@ -26,12 +24,10 @@ public class EnergyDistributionUtil {
             double operationalCost = getDoubleValue(source, "operationalCost", 0.1);
             String status = (String) source.get("status");
             
-            // Calculate allocation for this source (0 if not used)
             double allocation = 0.0;
             if (remainingDemand > 0 && ("online".equalsIgnoreCase(status) || "standby".equalsIgnoreCase(status))) {
-                // Check if this source is in the sorted priority list for allocation
                 boolean shouldAllocate = sortedSources.stream()
-                    .limit(Math.min(3, sortedSources.size())) // Top 3 sources for allocation
+                    .limit(Math.min(3, sortedSources.size()))
                     .anyMatch(s -> sourceType.equals(s.get("sourceType")));
                 
                 if (shouldAllocate) {
@@ -41,7 +37,6 @@ public class EnergyDistributionUtil {
                 }
             }
             
-            // Create allocation info for ALL sources (allocated and non-allocated)
             Map<String, Object> sourceAllocation = new HashMap<>();
             sourceAllocation.put("sourceType", sourceType);
             sourceAllocation.put("allocatedCapacity", allocation);
@@ -59,7 +54,6 @@ public class EnergyDistributionUtil {
             sourceAllocation.put("constraints", source.get("constraints"));
             sourceAllocation.put("alerts", source.get("alerts"));
             
-            // Add impact analysis
             sourceAllocation.put("impactAnalysis", analyzeSourceImpact(source, allocation));
             
             allSourcesDistribution.add(sourceAllocation);
@@ -70,7 +64,7 @@ public class EnergyDistributionUtil {
         result.put("totalAllocated", totalDemand - remainingDemand);
         result.put("remainingDemand", remainingDemand);
         result.put("totalCost", totalCost);
-        result.put("feasible", remainingDemand <= 0.1); // Small tolerance
+        result.put("feasible", remainingDemand <= 0.1);
         result.put("optimizationStrategy", optimizationCriteria);
         
         return result;
@@ -251,7 +245,6 @@ public class EnergyDistributionUtil {
     }
 
     private static boolean isCostOptimized(List<Map<String, Object>> distribution) {
-        // Simple heuristic: sources should be in cost order
         for (int i = 1; i < distribution.size(); i++) {
             double prevCost = getDoubleValue(distribution.get(i-1), "cost", 0.0) / 
                             getDoubleValue(distribution.get(i-1), "allocatedCapacity", 1.0);
@@ -324,7 +317,7 @@ public class EnergyDistributionUtil {
                 return i;
             }
         }
-        return sortedSources.size(); // Not found, lowest priority
+        return sortedSources.size();
     }
 
     private static Map<String, Object> analyzeSourceImpact(Map<String, Object> source, double allocation) {
@@ -335,7 +328,6 @@ public class EnergyDistributionUtil {
         double maxCapacity = getDoubleValue(source, "maxCapacity", currentCapacity);
         String sourceType = (String) source.get("sourceType");
         
-        // Calculate impact metrics
         double usageChange = allocation;
         double usageChangePercent = currentUsage > 0 ? (usageChange / currentUsage) * 100 : 0;
         double newUtilization = maxCapacity > 0 ? ((currentUsage + allocation) / maxCapacity) * 100 : 0;
@@ -347,7 +339,6 @@ public class EnergyDistributionUtil {
         impact.put("previousUtilization", previousUtilization);
         impact.put("utilizationChange", newUtilization - previousUtilization);
         
-        // Determine impact level
         String impactLevel;
         if (allocation == 0) {
             impactLevel = "no_change";
@@ -360,7 +351,6 @@ public class EnergyDistributionUtil {
         }
         impact.put("impactLevel", impactLevel);
         
-        // Add recommendations based on source type and impact
         List<String> recommendations = new ArrayList<>();
         if ("solar".equals(sourceType) && allocation == 0) {
             recommendations.add("Solar capacity reduced due to weather conditions");
