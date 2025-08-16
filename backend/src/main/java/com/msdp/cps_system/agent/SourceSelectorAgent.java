@@ -50,8 +50,8 @@ public interface SourceSelectorAgent {
         Select optimal energy sources for:
         - Predicted Demand: {{predictedDemand}} kW
         - Time Horizon: {{timeHorizon}} minutes  
-        - Event: {{eventType}}
-        - Failed Component: {{component}}
+        - Event Type: {{eventType}}
+        - Failed Component: {{component}} (Note: null means no specific component failure)
         - Available Sources: {{energySourcesContext}}
         
         ANALYSIS WORKFLOW:
@@ -60,6 +60,12 @@ public interface SourceSelectorAgent {
         3. Use `identifyReliableSources` with sources JSON for dependable sources
         4. Use `analyzeSourceCompatibility` with sources JSON and selected types
         5. Select optimal combination based on analysis results
+        
+        IMPORTANT CONSIDERATIONS:
+        - If component is null, focus on general source optimization
+        - If component specifies a failed component, AVOID selecting that specific source type
+        - For equipment failures, prioritize sources not affected by the failure
+        - For weather events, prioritize sources that perform well under those conditions
         
         Ensure total capacity ≥ demand + safety margin.
         """)

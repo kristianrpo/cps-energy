@@ -4,6 +4,8 @@ import com.msdp.cps_system.dto.response.DemandPredictionResponseDto;
 import com.msdp.cps_system.dto.response.SourceSelectionResponseDto;
 import com.msdp.cps_system.dto.response.EnergyDistributionResponseDto;
 import com.msdp.cps_system.dto.request.BaseEventRequestDto;
+import com.msdp.cps_system.dto.request.EquipmentFailureRequestDto;
+import com.msdp.cps_system.enums.EventType;
 import com.msdp.cps_system.util.AgentReasoningMapper;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -53,14 +55,15 @@ public class AgentsOrchestratorService {
             String energySourcesJson = objectMapper.writeValueAsString(request.getEnergySourcesContext());
 
             // Step 3: Select optimal energy sources based on the prediction and available
-            // sources
+            String componentInfo = extractComponentInfo(request);
+            
             SourceSelectionResponseDto sourceSelection = sourceSelectorAgent.selectSources(
                     demandPrediction,
                     demandPrediction.getPredictedDemand(),
                     demandPrediction.getTimeHorizon(),
                     demandPrediction.getConfidence(),
                     demandPrediction.getEventType(),
-                    request.getComponent(),
+                    componentInfo,
                     energySourcesJson);
             sourceSelection.setTimestamp(LocalDateTime.now());
 
@@ -94,5 +97,14 @@ public class AgentsOrchestratorService {
         } catch (Exception e) {
             throw new RuntimeException("Error processing event: " + e.getMessage(), e);
         }
+    }
+    
+    private String extractComponentInfo(BaseEventRequestDto request) {
+        if (request.getEventType() == EventType.EQUIPMENT_FAILURE) {
+            if (request instanceof EquipmentFailureRequestDto equipmentRequest) {
+                return equipmentRequest.component();
+            }
+        }
+        return null;
     }
 }
