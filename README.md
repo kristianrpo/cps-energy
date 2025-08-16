@@ -29,6 +29,11 @@ Este proyecto implementa un **sistema ciberfísico de gestión y predicción de 
 
 ---
 
+## 🏗️ Diagrama de Arquitectura
+![flujo-cps](https://github.com/user-attachments/assets/8c52c219-fd65-40c9-998a-78fb72ca8347)
+
+---
+
 ## 📂 Estructura del proyecto
 
 ```
