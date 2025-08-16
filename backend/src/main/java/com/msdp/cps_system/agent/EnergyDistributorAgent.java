@@ -24,8 +24,6 @@ import dev.langchain4j.service.spring.AiService;
     - utilizationPercent: calculate using max capacity and new usage
     - previousUsage: Preserve original
     - newUsage: Your calculated kW
-    - justification: Technical reason
-    - operationalNotes: Specific instructions
     - status: Updated based on usage
 
     
@@ -53,7 +51,7 @@ public interface EnergyDistributorAgent {
     - Ensure maxSourceCapacity ≥ newUsage
     - Ensure sum(newUsages) ≥ totalDemandPrediction
     - Ensure each source has the utilizationPercent calculated based on maxSourceCapacity and newUsage
-    - Provide technical justifications and operational notes where needed
+    - Ensure define previousUsage, newUsage, and status for every source
     """)
     EnergyDistributionResponseDto optimizeDistribution(
             @V("sourceSelection") SourceSelectionResponseDto sourceSelection,

@@ -26,7 +26,6 @@ import dev.langchain4j.service.spring.AiService;
       "timeHorizon": 60,
       "analysis": "technical analysis",
       "recommendations": "monitoring actions", 
-      "keyFactors": ["factor1", "factor2"]
     }
     """)
 public interface DemandPredictorAgent {

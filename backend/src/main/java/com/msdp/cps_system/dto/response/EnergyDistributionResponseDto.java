@@ -67,15 +67,9 @@ public class EnergyDistributionResponseDto {
         @NotNull
         private String analysis;
         
-        private List<String> keyFactors;
-        
         private List<String> recommendations;
         
         private Integer confidence;
-        
-        private Map<String, Object> supportingData;
-        
-        private String strategy;
         
         private List<String> rationale;
     }
@@ -105,8 +99,6 @@ public class EnergyDistributionResponseDto {
         private String justification;
         
         private Integer startupTimeMinutes;
-        
-        private List<String> operationalNotes;
         
         private String status;
     }

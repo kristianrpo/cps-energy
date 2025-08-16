@@ -14,11 +14,8 @@ public class AgentReasoningMapper {
         return new AgentReasoningDto(
                 "DemandPredictorAgent",
                 demandPrediction.getAnalysis(),
-                demandPrediction.getKeyFactors(),
                 demandPrediction.getRecommendations(),
                 demandPrediction.getConfidence(),
-                demandPrediction.getSupportingData(),
-                null,
                 null);
     }
 
@@ -26,11 +23,8 @@ public class AgentReasoningMapper {
         return new AgentReasoningDto(
                 "SourceSelectorAgent",
                 null,
-                null,
                 sourceSelection.getRecommendations(),
                 sourceSelection.getConfidence(),
-                sourceSelection.getContingencyPlan(),
-                sourceSelection.getStrategy(),
                 sourceSelection.getRationale());
     }
 
@@ -38,11 +32,8 @@ public class AgentReasoningMapper {
         return new AgentReasoningDto(
                 "EnergyDistributorAgent",
                 energyDistribution.getRationale(),
-                null,
                 energyDistribution.getRecommendations(),
                 energyDistribution.getConfidence(),
-                energyDistribution.getPerformanceMetrics(),
-                energyDistribution.getOptimizationStrategy(),
                 null);
     }
 }
